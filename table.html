@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette Game</title>
+    <link rel="icon" type="image/png" href="logo.png"/>
+    <style>
+      body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('background.jpeg'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    margin: 0;
+    background-color: green; 
+    font-family: Arial, sans-serif;
+}
+
+
+.navbar {
+    background-color: #1B5E20;
+    color: #FFEB3B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 97.3%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    box-shadow: 0 4px 10px rgba(255, 235, 59, 0.5); 
+}
+
+        .navbar div {
+            font-size: 24px;
+        }
+
+        .lobby-btn {
+            background-color: transparent; 
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .lobby-btn img {
+            width: 20px; 
+            height: 20px; 
+            vertical-align: middle; 
+            margin-right: 5px; 
+        }
+
+        .table {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 5px;
+            background-color: black;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-width: 97%; 
+            overflow: auto; 
+        }
+
+        .cell {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .red { background-color: red; }
+        .black { background-color: black; }
+        .green { background-color: green; color: black; }
+        .blue { background-color: blue; } 
+
+        .bets {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chip-25 { background-color: purple; }
+        .chip-50 { background-color: green; }
+        .chip-100 { background-color: blue; }
+        .chip-500 { background-color: orange; }
+        .chip-1k { background-color: pink; }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            flex-wrap: wrap; 
+        }
+
+        .btn {
+    flex: 1;
+    padding: 15px;
+    background-color: #FFEB3B; 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    color: #5D4037; 
+    font-size: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+    transition: all 0.3s ease; 
+    text-transform: uppercase; 
+    font-weight: bold; 
+        }
+
+.btn:hover {
+    background-color: #FFD54F; 
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.5); 
+    transform: translateY(-4px); 
+}
+
+.btn:active {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    transform: translateY(2px); 
+}
+
+
+        @media (max-width: 600px) {
+            .cell {
+                height: 40px; 
+                font-size: 16px; 
+            }
+
+            .chip {
+                width: 60px;
+                height: 40px;
+                font-size: 16px; 
+            }
+
+            .btn {
+                padding: 8px; 
+            }
+
+            .navbar div {
+                font-size: 15px; 
+            }
+
+            .lobby-btn {
+                padding: 8px 16px; 
+                font-size: 15px; 
+            }
+        }
+
+
+      footer {
+          background-color: #1B5E20;
+          color: #FFEB3B;
+          text-align: center;
+          padding: 10px;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          box-shadow: 0 -4px 10px rgba(255, 235, 59, 0.5); 
+      }
+
+      footer p {
+          margin: 0;
+          font-size: 16px;
+      }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="total">TOTAL: 2,425$</div>
+        <div class="bet">BET: 0$</div>
+        <a href="Choose.html"> <button class="lobby-btn">
+            <img src="logout.png" alt="Logout" style="height: 30px;width: 30px;"> 
+        </button></a>
+    </div>
+
+    <div class="table">
+        <div class="cell green" data-value="0">0</div>
+        <div class="cell red" data-value="32">32</div>
+        <div class="cell black" data-value="15">15</div>
+        <div class="cell red" data-value="19">19</div>
+        <div class="cell black" data-value="4">4</div>
+        <div class="cell red" data-value="21">21</div>
+        <div class="cell black" data-value="2">2</div>
+        <div class="cell red" data-value="25">25</div>
+        <div class="cell black" data-value="17">17</div>
+        <div class="cell red" data-value="34">34</div>
+        <div class="cell black" data-value="6">6</div>
+        <div class="cell red" data-value="27">27</div>
+        <div class="cell black" data-value="13">13</div>
+        <div class="cell red" data-value="36">36</div>
+        <div class="cell black" data-value="11">11</div>
+        <div class="cell red" data-value="30">30</div>
+        <div class="cell black" data-value="28">28</div>
+        <div class="cell red" data-value="9">9</div>
+        <div class="cell black" data-value="23">23</div>
+        <div class="cell red" data-value="10">10</div>
+        <div class="cell black" data-value="5">5</div>
+        <div class="cell red" data-value="24">24</div>
+        <div class="cell black" data-value="16">16</div>
+        <div class="cell red" data-value="8">8</div>
+        <div class="cell black" data-value="12">12</div>
+        <div class="cell red" data-value="29">29</div>
+        <div class="cell black" data-value="18">18</div>
+        <div class="cell red" data-value="7">7</div>
+        <div class="cell black" data-value="20">20</div>
+        <div class="cell red" data-value="14">14</div>
+        <div class="cell black" data-value="22">22</div>
+        <div class="cell red" data-value="3">3</div>
+        <div class="cell black" data-value="31">31</div>
+        <div class="cell red" data-value="26">26</div>
+        <div class="cell black" data-value="35">35</div>
+        <div class="cell red" data-value="1">1</div>
+        <div class="cell black" data-value="33">33</div>
+        <div class="cell red" data-value="15">15</div>
+    </div>
+
+    <div class="bets">
+        <div class="chip chip-25" data-value="25">25</div>
+        <div class="chip chip-50" data-value="50">50</div>
+        <div class="chip chip-100" data-value="100">100</div>
+        <div class="chip chip-500" data-value="500">500</div>
+        <div class="chip chip-1k" data-value="1000">1K</div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" id="undo">UNDO</button>
+        <button class="btn" id="spin">SPIN</button>
+        <button class="btn" id="clear">CLEAR BET</button>
+    </div>
+
+    <script>
+        let total = 2425;
+        let bet = 0;
+        let selectedCell = null;
+
+        const totalDisplay = document.querySelector('.total');
+        const betDisplay = document.querySelector('.bet');
+        const tableCells = document.querySelectorAll('.cell');
+        const chips = document.querySelectorAll('.chip');
+
+
+        function updateDisplay() {
+            totalDisplay.textContent = `TOTAL: ${total}$`;
+            betDisplay.textContent = `BET: ${bet}$`;
+        }
+
+     
+        tableCells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                if (bet > 0) {
+                    if (selectedCell) {
+                        selectedCell.classList.remove('selected');
+                        selectedCell.classList.remove('blue'); 
+                    }
+                    selectedCell = cell;
+                    selectedCell.classList.add('selected');
+                    selectedCell.classList.add('blue'); 
+                }
+            });
+        });
+
+        
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const chipValue = parseInt(chip.dataset.value);
+                if (total >= chipValue) {
+                    bet += chipValue;
+                    total -= chipValue;
+                    updateDisplay();
+                }
+            });
+        });
+
+   
+        document.getElementById('spin').addEventListener('click', () => {
+            if (bet > 0 && selectedCell) {
+                const winningNumber = Math.floor(Math.random() * 37); 
+                alert(`Winning number: ${winningNumber}`);
+                
+                
+                selectedCell.classList.remove('selected');
+                selectedCell = null;
+                bet = 0; 
+                updateDisplay();
+            } else {
+                alert('Please place a bet and select a number.');
+            }
+        });
+
+        
+        document.getElementById('undo').addEventListener('click', () => {
+            if (selectedCell) {
+                selectedCell.classList.remove('selected');
+                selectedCell.classList.remove('blue'); 
+                selectedCell = null;
+            }
+        });
+
+       
+        document.getElementById('clear').addEventListener('click', () => {
+            bet = 0;
+            total += bet; 
+            updateDisplay();
+            if (selectedCell) {
+                selectedCell.classList.remove('selected');
+                selectedCell.classList.remove('blue'); 
+                selectedCell = null;
+            }
+        });
+
+        updateDisplay(); 
+    </script>
+
+
+<audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+ </audio>
+
+
+ <footer>
+    <p>&copy; 2024 شركة العلي للتصميم جميع الحقوق محفوظة<p>
+</footer>
+
+ 
+</body>
+</html>
